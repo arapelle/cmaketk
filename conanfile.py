@@ -29,7 +29,7 @@ class CmaketkRecipe(ConanFile):
     no_copy_source = True
 
     # Sources
-    exports_sources = "LICENSE", "CMakeLists.txt", "test/*", "cmake/config/*", "cmake/module/*"
+    exports_sources = "LICENSE", "CMakeLists.txt", "test/*", "cmake/config/*", "cmake/module/*.cmake"
 
     def set_version(self):
         cmakelist_content = load(self, os.path.join(self.recipe_folder, "CMakeLists.txt"))

@@ -21,6 +21,7 @@ set(package_dir "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
 set(component_files
     ${module_root_dir}/cmtk/utility.cmake
     ${module_root_dir}/cmtk/project.cmake
+    ${module_root_dir}/cmtk/library_project.cmake
     ${module_root_dir}/cmtk/package.cmake
 )
 
