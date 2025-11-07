@@ -21,6 +21,10 @@
 
 &ensp;&ensp;&ensp;&ensp;Raise a fatal error if none of the given names is a defined variable. (e.g. `fatal_if_none_is_def("FATAL ERROR!" PUBLIC PRIVATE)`)
 
+### Function `cmtk_fatal_if_none_is_true(msg ...)`
+
+&ensp;&ensp;&ensp;&ensp;Raise a fatal error if none of the given names is a defined variable with TRUE as value. (e.g. `fatal_if_none_is_true("FATAL ERROR!" OPT_A OPT_B)`)
+
 - *msg* :  The error message to display if needed.
 
 ### Function `cmtk_fatal_if_none_of(var_name ...)`

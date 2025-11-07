@@ -1,0 +1,9 @@
+#include <@PACKAGE_LOWER_VAR_NAME@/tools.hpp>
+
+namespace @PACKAGE_LOWER_VAR_NAME@
+{
+std::string decorate(std::string_view str)
+{
+    return std::string("_-* ") + std::string(str) + " *-_";
+}
+} // @PACKAGE_LOWER_VAR_NAME@

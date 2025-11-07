@@ -1,0 +1,8 @@
+#pragma once
+
+#include <string>
+
+namespace @PACKAGE_LOWER_VAR_NAME@
+{
+std::string decorate(std::string_view str);
+} // @PACKAGE_LOWER_VAR_NAME@
