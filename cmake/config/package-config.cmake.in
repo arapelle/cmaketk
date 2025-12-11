@@ -1,9 +1,14 @@
 
 @PACKAGE_INIT@
 
+include(${CMAKE_CURRENT_LIST_DIR}/@PACKAGE_NAME@-targets.cmake)
+
 foreach(component ${@PROJECT_NAME@_FIND_COMPONENTS})
     set(component_file ${CMAKE_CURRENT_LIST_DIR}/component/${component}.cmake)
-    if(EXISTS ${component_file})
+    if(TARGET "@PACKAGE_NAME@::${component}")
+        set(@PACKAGE_NAME@_${component}_FOUND TRUE)
+        message(STATUS "Found @PACKAGE_NAME@ component: ${component}")
+    elseif(EXISTS ${component_file})
         include(${component_file})
         set(@PROJECT_NAME@_${component}_FOUND TRUE)
         message(STATUS "Found component @PROJECT_NAME@::${component}")

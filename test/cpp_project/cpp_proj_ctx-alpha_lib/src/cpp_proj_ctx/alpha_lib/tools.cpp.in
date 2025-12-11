@@ -1,0 +1,11 @@
+#include <@PROJECT_CODE_CONTEXT_NAME@/@PROJECT_CODE_SUBJECT_NAME@/tools.hpp>
+
+inline namespace @PROJECT_CODE_CONTEXT_NAME@
+{
+namespace @PROJECT_CODE_SUBJECT_NAME@
+{std::string decorate(std::string_view str)
+{
+    return std::string("_-* ") + std::string(str) + " *-_";
+}
+} // @PROJECT_CODE_SUBJECT_NAME@
+} // @PROJECT_CODE_CONTEXT_NAME@

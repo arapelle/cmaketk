@@ -33,7 +33,7 @@ class CmaketkRecipe(ConanFile):
 
     def set_version(self):
         cmakelist_content = load(self, os.path.join(self.recipe_folder, "CMakeLists.txt"))
-        version_regex = r"""project\([a-z_]+ *VERSION *?([0-9]+\.[0-9]+\.[0-9]+).*"""
+        version_regex = r"""set\( *PACKAGE_VERSION *?([0-9]+\.[0-9]+\.[0-9]+).*"""
         self.version = re.search(version_regex, cmakelist_content).group(1)
 
     def layout(self):
@@ -46,8 +46,7 @@ class CmaketkRecipe(ConanFile):
     def generate(self):
         tc = CMakeToolchain(self)
         if not self.conf.get("tools.build:skip_test", default=True):
-            upper_name = f"{self.name}".upper()
-            tc.variables[f"BUILD_{upper_name}_TESTS"] = "TRUE"
+            tc.variables["CMTK_BUILD_TESTS"] = "TRUE"
         tc.generate()
 
     def build(self):
@@ -55,7 +54,7 @@ class CmaketkRecipe(ConanFile):
         cmake.configure()
         if not self.conf.get("tools.build:skip_test", default=True):
             cmake.build()
-            cmake.ctest(cli_args=["--progress", "--output-on-failure"])
+            cmake.ctest(cli_args=["--progress", "--output-on-failure", "--parallel 1"])
 
     def package(self):
         copy(self, "LICENSE", src=self.source_folder, dst=os.path.join(self.package_folder, "licenses"))
