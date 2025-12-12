@@ -3,13 +3,13 @@ import os, re
 from conan import ConanFile
 from conan.tools.build import check_min_cppstd
 from conan.tools.cmake import CMakeToolchain, CMake, cmake_layout, CMakeDeps
-from conan.tools.files import load, copy, rm, rmdir
+from conan.tools.files import load, copy, rm
 
 required_conan_version = ">=2.2.0"
 
 class CmaketkRecipe(ConanFile):
     name = "cmaketk"
-    package_type = "build-scripts"
+    package_type = "header-library"
 
     # Optional metadata
     description = "A CMake ToolKit providing helping CMake functions to manage CMake projects easily."
@@ -29,7 +29,10 @@ class CmaketkRecipe(ConanFile):
     no_copy_source = True
 
     # Sources
-    exports_sources = "LICENSE", "CMakeLists.txt", "test/*", "cmake/config/*", "cmake/module/*"
+    exports_sources = "LICENSE", "CMakeLists.txt", "test/*", "cmake/config/*", "cmake_module/*", "cpp_lib/*", "test_package/*"
+
+    # Other
+    implements = ["auto_header_only"]
 
     def set_version(self):
         cmakelist_content = load(self, os.path.join(self.recipe_folder, "CMakeLists.txt"))
@@ -38,15 +41,20 @@ class CmaketkRecipe(ConanFile):
 
     def layout(self):
         cmake_layout(self)
-    
+
+    def validate(self):
+        check_min_cppstd(self, 20)
+
     def build_requirements(self):
         if not self.conf.get("tools.build:skip_test", default=True):
             self.test_requires("gtest/[^1.14]")
 
     def generate(self):
+        deps = CMakeDeps(self)
+        deps.generate()
         tc = CMakeToolchain(self)
         if not self.conf.get("tools.build:skip_test", default=True):
-            tc.variables["CMTK_BUILD_TESTS"] = "TRUE"
+            tc.variables["CMAKETK_BUILD_TESTS"] = "TRUE"
         tc.generate()
 
     def build(self):
@@ -63,8 +71,7 @@ class CmaketkRecipe(ConanFile):
         rm(self, "uninstall.cmake", os.path.join(self.package_folder, "lib", "cmake", self.name))
 
     def package_info(self):
+        self.cpp_info.bindirs = []
+        self.cpp_info.libdirs = []
         self.cpp_info.builddirs = [os.path.join("lib", "cmake", self.name)]
         self.cpp_info.set_property("cmake_find_mode", "none")
-
-    def package_id(self):
-        self.info.clear()
