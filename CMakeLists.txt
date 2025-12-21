@@ -3,15 +3,14 @@ cmake_minimum_required(VERSION 3.30)
 set(module_root_dir "cmake_module")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/${module_root_dir}")
 
-include(GNUInstallDirs)
-
 #-- Package cmaketk ------------------------------------------------------------
 
 set(PACKAGE_NAME cmaketk)
 set(PACKAGE_VERSION 0.1.0) # dev
-set(PACKAGE_DIR "${CMAKE_INSTALL_LIBDIR}/cmake/${PACKAGE_NAME}")
 
 project(${PACKAGE_NAME} VERSION ${PACKAGE_VERSION})
+include(GNUInstallDirs)
+set(PACKAGE_DIR "lib/cmake/${PACKAGE_NAME}")
 
 # targets: cmake_tools
 add_subdirectory(cpp_lib)
