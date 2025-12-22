@@ -4,7 +4,6 @@ project(PackageTest CXX)
 
 find_package(cmaketk CONFIG REQUIRED
     COMPONENTS
-        cmake_tools
         utility
         logging
         project
@@ -17,7 +16,6 @@ find_package(cmaketk CONFIG REQUIRED
 
 add_executable(test_package test_package.cpp)
 target_compile_features(test_package PRIVATE cxx_std_20)
-target_link_libraries(test_package PRIVATE cmaketk::cmaketk)
 
 cmtk_set_ifndef(IVAR 42)
 cmake_print_variables(IVAR)

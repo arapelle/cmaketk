@@ -1,10 +1,10 @@
-#include <cmaketk/cmake_tools/cmake_tools.hpp>
+#include <cmake_cpptk/cmake_cpptk.hpp>
 
 #include <gtest/gtest.h>
 #include <format>
 
-cmake_tools::cmake cmake(CMAKE_COMMAND);
-cmake_tools::ctest ctest(CMAKE_CTEST_COMMAND);
+cmake_cpptk::cmake cmake(CMAKE_COMMAND);
+cmake_cpptk::ctest ctest(CMAKE_CTEST_COMMAND);
 
 TEST(rsc_cpp_lib_proj_ctx_beta_lib_tests, configure__ok)
 {

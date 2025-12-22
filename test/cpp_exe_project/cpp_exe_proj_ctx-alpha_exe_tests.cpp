@@ -1,9 +1,9 @@
-#include <cmaketk/cmake_tools/cmake_tools.hpp>
+#include <cmake_cpptk/cmake_cpptk.hpp>
 
 #include <gtest/gtest.h>
 
-cmake_tools::cmake cmake(CMAKE_COMMAND);
-cmake_tools::ctest ctest(CMAKE_CTEST_COMMAND);
+cmake_cpptk::cmake cmake(CMAKE_COMMAND);
+cmake_cpptk::ctest ctest(CMAKE_CTEST_COMMAND);
 
 TEST(cpp_exe_proj_ctx_alpha_exe_tests, configure__ok)
 {

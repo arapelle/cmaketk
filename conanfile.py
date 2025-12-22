@@ -48,6 +48,7 @@ class CmaketkRecipe(ConanFile):
     def build_requirements(self):
         if not self.conf.get("tools.build:skip_test", default=True):
             self.test_requires("gtest/[^1.14]")
+            self.test_requires("cmake_cpptk/[^0.1]")
 
     def generate(self):
         deps = CMakeDeps(self)

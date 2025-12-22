@@ -12,15 +12,6 @@ project(${PACKAGE_NAME} VERSION ${PACKAGE_VERSION})
 include(GNUInstallDirs)
 set(PACKAGE_DIR "lib/cmake/${PACKAGE_NAME}")
 
-# targets: cmake_tools
-add_subdirectory(cpp_lib)
-
-# target cmaketk
-add_library(${PACKAGE_NAME} INTERFACE)
-target_link_libraries(${PACKAGE_NAME} INTERFACE cmake_tools)
-install(TARGETS ${PACKAGE_NAME} EXPORT ${PACKAGE_NAME}-targets)
-install(EXPORT ${PACKAGE_NAME}-targets DESTINATION ${PACKAGE_DIR} NAMESPACE "${PACKAGE_NAME}::")
-
 # module cmtk
 add_subdirectory(${module_root_dir})
 
