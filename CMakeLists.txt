@@ -3,42 +3,44 @@ cmake_minimum_required(VERSION 3.30)
 set(module_root_dir "cmake/module")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/${module_root_dir}")
 
-#-- Project -------------------------------------------------------------------
+#-- Package cmaketk ------------------------------------------------------------
 
-project(cmaketk VERSION 1.0.0) # dev
+set(PACKAGE_NAME cmaketk)
+set(PACKAGE_VERSION 1.0.0) # dev
 
-add_subdirectory(test)
-
-#-- Package -------------------------------------------------------------------
-
-set(package_dir "${CMAKE_INSTALL_LIBDIR}/cmake/${PROJECT_NAME}")
-
-# Install scripts
-set(component_files
-    ${module_root_dir}/cmtk/utility.cmake
-)
-
-install(FILES
-    ${component_files}
-    DESTINATION "${package_dir}/component"
-)
-# Install scripts
-
-# Install package
+project(${PACKAGE_NAME} VERSION ${PACKAGE_VERSION})
 include(GNUInstallDirs)
+set(PACKAGE_DIR "lib/cmake/${PACKAGE_NAME}")
+
+# module cmtk
+add_subdirectory(${module_root_dir})
+
+# test
+option(CMAKETK_BUILD_TESTS "Build cmaketk tests." OFF)
+if(CMAKETK_BUILD_TESTS)
+    include(CTest)
+    if(BUILD_TESTING)
+        add_subdirectory(test)
+    endif()
+endif()
+
+#-- Install Package cmaketk ----------------------------------------------------
+
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file("cmake/config/package-config.cmake.in"
-    "${PROJECT_BINARY_DIR}/${PROJECT_NAME}-config.cmake"
-    INSTALL_DESTINATION ${package_dir}
+    "${PROJECT_BINARY_DIR}/${PACKAGE_NAME}-config.cmake"
+    INSTALL_DESTINATION ${PACKAGE_DIR}
 )
-write_basic_package_version_file("${PROJECT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake"
+write_basic_package_version_file("${PROJECT_BINARY_DIR}/${PACKAGE_NAME}-config-version.cmake"
     VERSION ${PROJECT_VERSION}
     COMPATIBILITY SameMajorVersion
 )
 install(FILES
-    ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-config.cmake
-    ${PROJECT_BINARY_DIR}/${PROJECT_NAME}-config-version.cmake
-    DESTINATION ${package_dir}
+    ${PROJECT_BINARY_DIR}/${PACKAGE_NAME}-config.cmake
+    ${PROJECT_BINARY_DIR}/${PACKAGE_NAME}-config-version.cmake
+    DESTINATION ${PACKAGE_DIR}
 )
-# End install package
+
+include(cmtk/project)
+cmtk_install_uninstall_script(${PACKAGE_NAME} LIB)

@@ -13,6 +13,11 @@ cmtk_fatal_ifndef("error" alpha beta)
 set(delta "")
 cmtk_fatal_if_none_is_def("error" gamma delta)
 
+# cmtk_fatal_if_none_is_true():
+set(iota FALSE)
+set(kappa TRUE)
+cmtk_fatal_if_none_is_true("None of (iota, kappa) is TRUE" iota kappa)
+
 # cmtk_fatal_if_none_of():
 set(epsilon "ONE")
 cmtk_fatal_if_none_of(epsilon "THREE" "TWO" "ONE")

@@ -1,0 +1,11 @@
+#pragma once
+
+#include <string>
+
+inline namespace @PROJECT_CODE_CONTEXT_NAME@
+{
+namespace @PROJECT_CODE_SUBJECT_NAME@
+{
+std::string decorate(std::string_view str);
+} // @PROJECT_CODE_SUBJECT_NAME@
+} // @PROJECT_CODE_CONTEXT_NAME@

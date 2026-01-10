@@ -1,0 +1,47 @@
+
+# CppProject
+
+## Include
+`find_package(cmaketk COMPONENTS cpp_project)`
+
+## Functions & Macros
+### Function `cmtk_configure_headers(return_var)`
+
+&ensp;&ensp;&ensp;&ensp;Apply `configure_file()` on a list of headers. The header hierarchy is preserved based on the provided header base directory.
+- *return_var* :  Variable in the calling scope containing the list of paths to the generated headers.
+- FILES *headers* :  List of header files to configure.
+- [BASE_DIR *dir*] :  Directory from which the relative path of input header is computed. (*${CMAKE_INSTALL_INCLUDEDIR}* used by default)
+- [BINARY_BASE_DIR *dir*] :  Directory from which the hierarchy of headers is generated. (*${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_INSTALL_INCLUDEDIR}* used by default)
+
+### Function `cmtk_configure_sources(return_var)`
+
+&ensp;&ensp;&ensp;&ensp;Apply `configure_file()` on a list of sources. The source hierarchy is preserved based on the provided source base directory.
+- *return_var* :  Variable in the calling scope containing the list of paths to the generated sources.
+- FILES *sourcess* :  List of source files to configure.
+- [BASE_DIR *dir*] :  Directory from which the relative path of input header is computed. (*src* used by default)
+- [BINARY_BASE_DIR *dir*] :  Directory from which the hierarchy of sources is generated. (*${CMAKE_CURRENT_BINARY_DIR}/src* used by default)
+
+### Function `cmtk_cxx_standard_option(cxx_std_var_name)`
+
+&ensp;&ensp;&ensp;&ensp;Create a cache option which indicates the C++ standard to use.
+- *cxx_std_var_name* :  The name of the cache option to create.
+- [MIN *cxx_std*] :  The lowest C++ standard version which can be used.  (*98* used by default)
+- [MAX *cxx_std*] :  The greatest C++ standard version which can be used.  (*26* used by default)
+- [DEFAULT *cxx_std*] :  The default value for the cache variable.  (*CMAKE_CXX_STANDARD* used by default if valid, *MIN* otherwise)
+
+### Function `cmtk_target_default_warning_options(target)`
+
+&ensp;&ensp;&ensp;&ensp;Add default warning compile options to a given target.
+`/Wall` mith Visual compiler, or `-Wall -Wextra -pedantic -Wshadow -Wmisleading-indentation -Wconversion -Wold-style-cast` with g++.
+
+### Function `cmtk_target_default_error_options(target)`
+
+&ensp;&ensp;&ensp;&ensp;Add default error compile options to a given target.
+`-pedantic-errors -Werror=old-style-cast` with g++.
+
+### function `cmtk_copy_runtime_dlls_if_win32(target_name)`
+
+&ensp;&ensp;&ensp;&ensp;Copy the runtime dlls of a valid target to its runtime directory. Set the RUNTIME_OUTPUT_DIRECTORY of the target to 
+"${CMAKE_CURRENT_BINARY_DIR}/${RUNTIME_OUTPUT_SUBDIRECTORY}" (below).
+- *target_name* :  The name of the target.
+- [RUNTIME_OUTPUT_SUBDIRECTORY *dir*] :  The subdirectory path used to defined the RUNTIME_OUTPUT_DIRECTORY of the target. (Empty string used by default)
